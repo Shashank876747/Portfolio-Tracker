@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account information and authentication profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "provider": { "type": "string", "enum": ["google", "microsoft", "apple", "password"] },
+        "createdAt": { "type": "string" },
+        "lastLoginAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "UserPortfolio": {
+      "title": "UserPortfolio",
+      "description": "User investment portfolio holding data and cash reserves",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "cashBalance": { "type": "number" },
+        "transactions": { "type": "array" },
+        "updatedAt": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles accessible only by the authenticated owner"
+    },
+    "/users/{userId}/portfolios/{portfolioId}": {
+      "schema": "UserPortfolio",
+      "description": "Investment portfolios owned by the authenticated user"
+    }
+  }
+}

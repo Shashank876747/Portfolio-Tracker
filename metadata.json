@@ -1,0 +1,6 @@
+{
+  "name": "ApexPortfolio - Real-Time Portfolio Tracker",
+  "description": "Professional real-time investment portfolio tracker with live market data, interactive performance analytics, and seamless migrations from Robinhood and Google Finance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
