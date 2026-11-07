@@ -59,38 +59,23 @@ export async function syncUserProfile(user: User, providerType: string = 'google
 
 // Sign In with Google
 export async function loginWithGoogle(): Promise<User> {
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    await syncUserProfile(result.user, 'google');
-    return result.user;
-  } catch (error: any) {
-    console.error('Google Sign-In Error:', error);
-    throw error;
-  }
+  const result = await signInWithPopup(auth, googleProvider);
+  await syncUserProfile(result.user, 'google');
+  return result.user;
 }
 
 // Sign In with Microsoft
 export async function loginWithMicrosoft(): Promise<User> {
-  try {
-    const result = await signInWithPopup(auth, microsoftProvider);
-    await syncUserProfile(result.user, 'microsoft');
-    return result.user;
-  } catch (error: any) {
-    console.error('Microsoft Sign-In Error:', error);
-    throw error;
-  }
+  const result = await signInWithPopup(auth, microsoftProvider);
+  await syncUserProfile(result.user, 'microsoft');
+  return result.user;
 }
 
 // Sign In with Apple
 export async function loginWithApple(): Promise<User> {
-  try {
-    const result = await signInWithPopup(auth, appleProvider);
-    await syncUserProfile(result.user, 'apple');
-    return result.user;
-  } catch (error: any) {
-    console.error('Apple Sign-In Error:', error);
-    throw error;
-  }
+  const result = await signInWithPopup(auth, appleProvider);
+  await syncUserProfile(result.user, 'apple');
+  return result.user;
 }
 
 // Sign In with Email & Password

@@ -66,12 +66,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         onClose();
       }, 700);
     } catch (err: any) {
-      console.warn(`${provider} login notice:`, err);
-      // If third-party popup blocked or provider configuration requires console credentials, provide instant fallback account
+      // User closed the popup window - this is a benign user cancellation, not a failure
+      if (err?.code === 'auth/popup-closed-by-user' || err?.code === 'auth/cancelled-popup-request') {
+        return;
+      }
+
+      // If third-party popup blocked or provider configuration requires console credentials, provide instant session option
       if (
         err?.code === 'auth/popup-blocked' ||
         err?.code === 'auth/configuration-not-found' ||
         err?.code === 'auth/operation-not-allowed' ||
+        err?.code === 'auth/unauthorized-domain' ||
         err?.message?.includes('popup') ||
         err?.message?.includes('configuration')
       ) {
@@ -118,7 +123,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         onClose();
       }, 700);
     } catch (err: any) {
-      console.error('Email Auth Error:', err);
       let msg = err?.message || 'Authentication failed. Please verify your credentials.';
       if (err?.code === 'auth/email-already-in-use') {
         msg = 'An account with this email address already exists. Please sign in instead.';
